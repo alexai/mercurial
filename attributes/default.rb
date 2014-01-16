@@ -1,0 +1,5 @@
+default['ag']['inst_dir']="/usr/local"
+default['ag']['hg']['pylib']="python-hglib-0.1.tar.gz"
+#default['ag']['hg']['pylib']['url']="http://mercurial.selenic.com/release/python-hglib/python-hglib-0.1.tar.gz"
+default['ag']['hg']['src_pkg']="mercurial-2.2.3.tar.gz"
+#default['ag']['hg']['src_pkg']['url']="http://mercurial.selenic.com/release/mercurial-2.2.3.tar.gz"
