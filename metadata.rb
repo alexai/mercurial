@@ -23,4 +23,8 @@ attribute "ag/hg/src_pkg",
 	:required => 'optional',
 	:default => 'mercurial-2.2.3.tar.gz'
 
+attribute "ag/mysql/rpm",
+	:required => 'optional',
+	:default => 'MySQL-server-5.5.20-1.rhel4.x86_64.rpm'
+
 depends           "build-essential"
