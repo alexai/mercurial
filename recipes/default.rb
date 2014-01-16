@@ -28,7 +28,7 @@ script "install_mysql" do
         action :nothing
         code <<-EOH
                 rpm -qa |grep MySQL-server
-                [ "$?" -ne "0" ] && yum install -y /root/{node.ag.mysql.rpm} || echo "Mysql-server installed"
+                [ "$?" -ne "0" ] && yum install -y /root/#{node.ag.mysql.rpm} || echo "Mysql-server installed"
                 /etc/init.d/mysql start
                 chkconfig mysql on
 		mysql -uroot < /root/init.sql
