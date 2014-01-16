@@ -31,6 +31,7 @@ script "install_mysql" do
                 [ "$?" -ne "0" ] && yum install -y /root/{node.ag.mysql.rpm} || echo "Mysql-server installed"
                 /etc/init.d/mysql start
                 chkconfig mysql on
+		mysql -uroot < /root/init.sql
 EOH
 end
 
@@ -57,6 +58,14 @@ remote_file "/root/#{node.ag.mysql.rpm}" do
         source "http://downloads.mysql.com/archives/mysql-5.5/MySQL-server-5.5.20-1.rhel4.x86_64.rpm"
         action :create_if_missing
         notifies :run, "script[install_mysql]", :immediately
+end
+
+#Initilizate database fisheye
+cookbook_file "/root/init.sql" do
+   source "init.sql"
+   owner  "root"
+   mode   "0755"
+   action :create
 end
 
 #Download python hglibs.
