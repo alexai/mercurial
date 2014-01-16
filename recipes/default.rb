@@ -20,6 +20,20 @@ script "install_hglib" do
 EOH
 end
 
+#Install Mysql-server-5.5.20
+script "install_mysql" do
+        interpreter "bash"
+        user "root"
+        cwd "/root"
+        action :nothing
+        code <<-EOH
+                rpm -qa |grep MySQL-server
+                [ "$?" -ne "0" ] && yum install -y /root/{node.ag.mysql.rpm} || echo "Mysql-server installed"
+                /etc/init.d/mysql start
+                chkconfig mysql on
+EOH
+end
+
 #Install Mercurial-2.2.3 from source.
 script "install_hg223" do
         interpreter "bash"
@@ -36,6 +50,13 @@ script "install_hg223" do
                 make 
                 make install
 EOH
+end
+
+#Download mysql-server
+remote_file "/root/#{node.ag.mysql.rpm}" do
+        source "http://downloads.mysql.com/archives/mysql-5.5/MySQL-server-5.5.20-1.rhel4.x86_64.rpm"
+        action :create_if_missing
+        notifies :run, "script[install_mysql]", :immediately
 end
 
 #Download python hglibs.
