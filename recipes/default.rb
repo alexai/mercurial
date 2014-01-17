@@ -63,7 +63,7 @@ script "install_mysql" do
         interpreter "bash"
         user "root"
         cwd "/root"
-        action :nothing
+        action :run
         code <<-EOH
                 yum install -y mysql mysql-server
                 /etc/init.d/mysqld start
