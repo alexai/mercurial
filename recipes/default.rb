@@ -6,12 +6,6 @@
 # Mailto: yai@dfengg.com
 #
 #Initilizate database fisheye
-cookbook_file "/root/init.sql" do
-   source "init.sql"
-   owner  "root"
-   mode   "0755"
-   action :create
-end
 
 #Download python hglibs.
 remote_file "/root/#{node.ag.hg.pylib}" do
@@ -55,19 +49,5 @@ script "install_hg223" do
                 [ "$?" -ne "0" ] && yum install -y python-docutils || echo "Python-docutils installed"
                 make 
                 make install
-EOH
-end
-
-#Install Mysql-server-5.5.20
-script "install_mysql" do
-        interpreter "bash"
-        user "root"
-        cwd "/root"
-        action :run
-        code <<-EOH
-                yum install -y mysql mysql-server
-                /etc/init.d/mysqld start
-                chkconfig mysqld on
-		mysql -uroot < /root/init.sql
 EOH
 end
